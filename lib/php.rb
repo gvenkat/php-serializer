@@ -52,9 +52,34 @@ module PHP
         whole_number
       when 'a'
         array
+      when 'O'
+        object
       else
         raise "Invalid input #{ type } at #{ scanner.pos }"
       end
+
+    end
+
+    def object
+      result = { }
+      klass_name, slots = nil, nil
+
+      # scan class name
+      scanner.scan( /O:(\d+):"/ )
+      klass_name = scanner.peek( scanner[ 1 ].to_i )
+      scanner.pos = scanner.pos + scanner[ 1 ].to_i
+
+      scanner.scan( /":(\d+):\{/ )
+      slots = scanner[ 1 ].to_i
+
+      slots.times do 
+        key, value = parse!, parse!
+        result[ key ] = value
+      end
+
+      result[ '__class' ] = klass_name
+
+      result
 
     end
 

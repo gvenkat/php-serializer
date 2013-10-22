@@ -52,4 +52,12 @@ class TestUnserializeSimple < Test::Unit::TestCase
 
   end
 
+  def test_simple_object
+    test = 'O:3:"Foo":2:{s:4:"name";s:2:"Yo";s:3:"pet";N;}'
+    result = { "name" => "Yo", "pet" =>  nil, "__class" => "Foo" }
+
+    assert PHP::Serializer.unserialize( test ).compare_intersection( result )
+
+  end
+
 end
