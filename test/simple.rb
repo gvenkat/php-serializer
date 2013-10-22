@@ -34,10 +34,22 @@ class TestUnserializeSimple < Test::Unit::TestCase
   end
 
   def test_simple_array
-    test = 'a:2:{i:0;s:5:"hello";i:1;s:6:"Foodle";}'
-    result = { '0' => "hello", '1' => "Foodle" }
+    tests = {
+      'a:2:{s:3:"abc";s:5:"hello";i:0;s:6:"Foodle";}' => {
+        "abc" => "hello",
+        '0' => "Foodle"
+      },
 
-    assert PHP::Serializer.unserialize( test ).compare_intersection( result )
+      'a:2:{i:0;s:5:"hello";i:1;s:6:"Foodle";}' =>  { 
+        '0' => "hello", 
+        '1' => "Foodle" 
+      }
+    }
+
+    tests.each do |key, value|
+      assert PHP::Serializer.unserialize( key ).compare_intersection( value )
+    end
+
   end
 
 end
