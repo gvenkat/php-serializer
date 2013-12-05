@@ -13,7 +13,8 @@ module PHP
     # There are two class methods +serialize+ and +unserialize+ that does exactly 
     # what you think it does
     #
-    # This is still alpha at an alpha stage, serialize is still unimplemented 
+    # This is still alpha at an alpha stage, serialize is still unimplemented, and doesn't
+    # parse references within serialized structures
     #
     #
     attr_accessor :buffer
