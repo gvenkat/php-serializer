@@ -1,11 +1,21 @@
 require 'strscan'
 
-
 module PHP
 
 
   class Serializer
 
+    # == PHP \ Serializer
+    #
+    # Provides and interface to convert PHP serialized strings into ruby structures
+    # and ruby strctures back into PHP serialized strings
+    #
+    # There are two class methods +serialize+ and +unserialize+ that does exactly 
+    # what you think it does
+    #
+    # This is still alpha at an alpha stage, serialize is still unimplemented 
+    #
+    #
     attr_accessor :buffer
     attr_accessor :scanner
 
@@ -118,9 +128,9 @@ module PHP
       scanner.scan( /";/ )
 
       result
-
     end
 
   end
+
 end
 
