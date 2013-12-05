@@ -58,6 +58,10 @@ module PHP
         string
       when 'N'
         null
+      when 'b'
+        boolean
+      when 'd'
+        double
       when 'i'
         whole_number
       when 'a'
@@ -114,6 +118,16 @@ module PHP
       # move forward
       scanner.scan( /N;/ )
       nil
+    end
+
+    def boolean
+      scanner.scan( /b:(\d);/ )
+      scanner[ 1 ].to_i == true
+    end
+
+    def double
+      scanner.scan( /d:(\d+\.\d+(?:E[-+]\d+)?);/ )
+      scanner[ 1 ].to_f
     end
 
     def whole_number
